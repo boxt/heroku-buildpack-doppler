@@ -67,4 +67,3 @@ cd "$BUILD_DIR" || exit
 
 DOPPLER_TOKEN=$(cat $ENV_DIR/DOPPLER_TOKEN)
 
-./doppler secrets download --token $DOPPLER_TOKEN --no-file --format env > .env
