@@ -61,17 +61,9 @@ curl --silent --retry 3 -o "$filename" -LN -D - "$DOWNLOAD_URL"
 
 tar -zxvf $filename -C $BUILD_DIR
 
-chmod +x $BUILD_DIR/vendor/doppler
-
-mkdir -p $BUILD_DIR/.profile.d
-
-# cat <<'EOF' >$BUILD_DIR/.profile.d/pathsetup.sh
-# PATH="$PATH:$BUILD_DIR/vendor"
-# EOF
-
-
+chmod +x $BUILD_DIR/doppler
 cd "$BUILD_DIR" || exit
 
-# DOPPLER_TOKEN=$(cat $ENV_DIR/DOPPLER_TOKEN)
+DOPPLER_TOKEN=$(cat $ENV_DIR/DOPPLER_TOKEN)
 
 
