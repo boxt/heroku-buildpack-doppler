@@ -70,6 +70,8 @@ cat <<'EOF' >$BUILD_DIR/.profile.d/pathsetup.sh
 PATH="$PATH:/app/vendor/doppler"
 EOF
 
+echo 'Completed doppler bp (DEBUG)'
+
 
 cd "$BUILD_DIR" || exit
 
