@@ -59,11 +59,19 @@ filename="doppler-download.tar.gz"
 
 curl --silent --retry 3 -o "$filename" -LN -D - "$DOWNLOAD_URL"
 
-tar -zxvf $filename -C $BUILD_DIR
+mkdir -p $BUILD_DIR/vendor/doppler
+tar -zxvf $filename -C $BUILD_DIR/vendor/doppler
 
-chmod +x $BUILD_DIR/doppler
+chmod +x $BUILD_DIR/vendor/doppler
+
+mkdir -p $BUILD_DIR/.profile.d
+
+cat <<'EOF' >$BUILD_DIR/.profile.d/pathsetup.sh
+PATH="$PATH:/app/vendor/doppler"
+EOF
 
 cd "$BUILD_DIR" || exit
 
 DOPPLER_TOKEN=$(cat $ENV_DIR/DOPPLER_TOKEN)
+
 
