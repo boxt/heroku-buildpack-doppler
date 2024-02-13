@@ -62,7 +62,7 @@ curl --silent --retry 3 -o "$filename" -LN -D - "$DOWNLOAD_URL"
 tar -zxvf $filename -C $BUILD_DIR
 
 chmod +x $BUILD_DIR/doppler
-mv $BUILD_DIR/doppler /usr/local/bin/doppler
+cp $BUILD_DIR/doppler /usr/local/bin/doppler
 
 cd "$BUILD_DIR" || exit
 
