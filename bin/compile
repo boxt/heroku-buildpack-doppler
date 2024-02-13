@@ -59,7 +59,8 @@ filename="doppler-download.tar.gz"
 
 curl --silent --retry 3 -o "$filename" -LN -D - "$DOWNLOAD_URL"
 
-tar -zxvf $filename -C $BUILD_DIR
+mkdir -p $BUILD_DIR/vendor/doppler
+tar -zxvf $filename -C $BUILD_DIR/vendor/doppler
 
 chmod +x $BUILD_DIR/vendor/doppler
 
