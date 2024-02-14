@@ -72,7 +72,7 @@ EOF
 
 cd "$BUILD_DIR" || exit
 
-DOPPLER_TOKEN=$(cat $ENV_DIR/DOPPLER_TOKEN)
+export DOPPLER_TOKEN=$(cat $ENV_DIR/DOPPLER_TOKEN)
 
 # echo DOPPLER_TOKEN
 echo "Quick test: $DOPPLER_TOKEN"
