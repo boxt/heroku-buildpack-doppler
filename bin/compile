@@ -89,7 +89,7 @@ echo "Found TARGET_DOPPLER_VARS, attempting to extract and process..."
 IFS=',' # Set the Internal Field Separator to comma
 for VAR in $TARGET_DOPPLER_VARS; do # Iterate over the variables
   echo "Fetching $VAR from doppler"
-  VALUE=$($BUILD_DIR/vendor/dopplerdoppler secrets get $VAR --plain)
+  VALUE=$($BUILD_DIR/vendor/doppler/doppler secrets get $VAR --plain)
   # export the env var to >> $BP_DIR/export
   echo "export $VAR=$VALUE" >> $BP_DIR/export
 done
