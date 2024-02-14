@@ -80,6 +80,8 @@ if [ -z "$TARGET_DOPPLER_VARS" ]; then
   echo "TARGET_DOPPLER_VARS is blank"
   exit
 
+echo "Found TARGET_DOPPLER_VARS, attempting to extract and process..."
+
 # So we have target_doppler_vars, lets split them out, then fetch and export the value from doppler
 IFS=',' read -ra VARS <<< "$TARGET_DOPPLER_VARS"
 
