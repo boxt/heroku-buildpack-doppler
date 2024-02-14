@@ -82,6 +82,8 @@ if [ -z "$TARGET_DOPPLER_VARS" ]; then
 fi
 
 echo "Found TARGET_DOPPLER_VARS, attempting to extract and process..."
+BUILD_DIR=${1:-}
+BP_DIR=$(cd "$(dirname "${0:-}")"; cd ..; pwd)
 
 # So we have target_doppler_vars, lets split them out, then fetch and export the value from doppler
 IFS=',' # Set the Internal Field Separator to comma
