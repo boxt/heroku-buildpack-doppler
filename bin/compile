@@ -81,6 +81,7 @@ echo "TARGET_DOPPLER_VARS: $TARGET_DOPPLER_VARS"
 if [ -z "$TARGET_DOPPLER_VARS" ]; then
   echo "TARGET_DOPPLER_VARS is blank"
   exit
+fi
 
 echo "Found TARGET_DOPPLER_VARS, attempting to extract and process..."
 
@@ -99,7 +100,7 @@ for VAR in "${VARS[@]}"; do
   # export the env var to >> $BP_DIR/export
   echo "export $VAR=$VALUE" >> $BP_DIR/export
 done
-fi
+
 
 
 
