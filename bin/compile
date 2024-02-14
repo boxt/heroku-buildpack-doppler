@@ -74,12 +74,13 @@ cd "$BUILD_DIR" || exit
 
 DOPPLER_TOKEN=$(cat $ENV_DIR/DOPPLER_TOKEN)
 
+# echo DOPPLER_TOKEN
+echo "Quick test: $DOPPLER_TOKEN"
+
 # Helper system to deal with heroku not dealing well with heroku-prebuild and yarn in the nodejs package
-echo "Checking if we have any TARGET_DOPPLER_VARS"
 TARGET_DOPPLER_VARS=$(cat $ENV_DIR/TARGET_DOPPLER_VARS)
 echo "TARGET_DOPPLER_VARS: $TARGET_DOPPLER_VARS"
 if [ -z "$TARGET_DOPPLER_VARS" ]; then
-  echo "TARGET_DOPPLER_VARS is blank"
   exit
 fi
 
