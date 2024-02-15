@@ -76,8 +76,6 @@ if [ -f "$ENV_DIR/DOPPLER_TOKEN" ]; then
   export DOPPLER_TOKEN=$(cat $ENV_DIR/DOPPLER_TOKEN)
 fi
 
-
-
 # Helper system to deal with heroku not dealing well with heroku-prebuild and yarn in the nodejs package
 if [ ! -f "$ENV_DIR/TARGET_DOPPLER_VARS" ]; then
   exit;
@@ -95,7 +93,7 @@ for VAR in $TARGET_DOPPLER_VARS; do
   echo "Fetching $VAR from doppler"
   VALUE=$($BUILD_DIR/vendor/doppler/doppler secrets get $VAR --plain)
   # export the env var to >> $BP_DIR/export
-  echo "export $VAR=$VALUE" > "$BP_DIR/export"
+  echo "export $VAR=$VALUE" >> "$BP_DIR/export"
 done
 
 
