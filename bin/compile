@@ -72,14 +72,16 @@ EOF
 
 cd "$BUILD_DIR" || exit
 
-export DOPPLER_TOKEN=$(cat $ENV_DIR/DOPPLER_TOKEN)
+if [ -f "$ENV_DIR/DOPPLER_TOKEN" ]; then
+  export DOPPLER_TOKEN=$(cat $ENV_DIR/DOPPLER_TOKEN)
 
 # Helper system to deal with heroku not dealing well with heroku-prebuild and yarn in the nodejs package
-TARGET_DOPPLER_VARS=$(cat $ENV_DIR/TARGET_DOPPLER_VARS)
-echo "TARGET_DOPPLER_VARS: $TARGET_DOPPLER_VARS"
-if [ -z "$TARGET_DOPPLER_VARS" ]; then
-  exit
+if [ -z "$ENV_DIR/TARGET_DOPPLER_VARS" ]; then
+  exit;
 fi
+
+TARGET_DOPPLER_VARS=$(cat $ENV_DIR/TARGET_DOPPLER_VARS)
+
 
 echo "Found TARGET_DOPPLER_VARS, attempting to extract and process..."
 BP_DIR=$(cd "$(dirname "${0:-}")"; cd ..; pwd)
