@@ -74,6 +74,7 @@ cd "$BUILD_DIR" || exit
 
 if [ -f "$ENV_DIR/DOPPLER_TOKEN" ]; then
   export DOPPLER_TOKEN=$(cat $ENV_DIR/DOPPLER_TOKEN)
+fi
 
 # Helper system to deal with heroku not dealing well with heroku-prebuild and yarn in the nodejs package
 if [ -z "$ENV_DIR/TARGET_DOPPLER_VARS" ]; then
