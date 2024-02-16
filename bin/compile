@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # bin/compile <build-dir> <cache-dir> <env-dir>
 
 # Parse args
@@ -72,6 +72,25 @@ EOF
 
 cd "$BUILD_DIR" || exit
 
-DOPPLER_TOKEN=$(cat $ENV_DIR/DOPPLER_TOKEN)
+if [ -f "$ENV_DIR/DOPPLER_TOKEN" ]; then
+  export DOPPLER_TOKEN=$(cat $ENV_DIR/DOPPLER_TOKEN)
+fi
 
+# Helper system to deal with heroku not dealing well with heroku-prebuild and yarn in the nodejs package
+if [ ! -f "$ENV_DIR/TARGET_DOPPLER_VARS" ]; then
+  exit;
+fi
 
+TARGET_DOPPLER_VARS=$(cat $ENV_DIR/TARGET_DOPPLER_VARS)
+echo "Found TARGET_DOPPLER_VARS, attempting to extract and process..."
+
+BP_DIR=$(cd "$(dirname "${0:-}")"; cd ..; pwd)
+
+# So we have target_doppler_vars, lets split them out, then fetch and export the value from doppler
+IFS=',' # Set the Internal Field Separator to comma
+for VAR in $TARGET_DOPPLER_VARS; do 
+  echo "Fetching $VAR from doppler"
+  VALUE=$($BUILD_DIR/vendor/doppler/doppler secrets get $VAR --plain)
+  # export the env var to >> $BP_DIR/export
+  echo "export $VAR=$VALUE" >> "$BP_DIR/export"
+done
