@@ -74,11 +74,14 @@ cd "$BUILD_DIR" || exit
 
 if [ -f "$ENV_DIR/DOPPLER_TOKEN" ]; then
   export DOPPLER_TOKEN=$(cat $ENV_DIR/DOPPLER_TOKEN)
+else
+  # Allows us to preset TARGET_DOPPLER_VARS in the environment without risk of error.
+  exit 0;
 fi
 
 # Helper system to deal with heroku not dealing well with heroku-prebuild and yarn in the nodejs package
 if [ ! -f "$ENV_DIR/TARGET_DOPPLER_VARS" ]; then
-  exit;
+  exit 0;
 fi
 
 TARGET_DOPPLER_VARS=$(cat $ENV_DIR/TARGET_DOPPLER_VARS)
