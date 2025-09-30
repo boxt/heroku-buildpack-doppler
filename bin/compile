@@ -24,10 +24,10 @@ else
   echo ""
   echo "Please report this issue:"
   echo "https://github.com/DopplerHQ/cli/issues/new?template=bug_report.md&title=[BUG]%20Unsupported%20OS"
-  clean_exit 1
+  exit 1
 fi
 
-log_debug "Detected OS '$os'"
+echo "Detected OS '$os'"
 
 # identify arch
 arch="unknown"
@@ -48,16 +48,19 @@ else
   echo ""
   echo "Please report this issue:"
   echo "https://github.com/DopplerHQ/cli/issues/new?template=bug_report.md&title=[BUG]%20Unsupported%20architecture"
-  clean_exit 1
+  exit 1
 fi
 
-log_debug "Detected architecture '$arch'"
+echo "Detected architecture '$arch'"
 
 DOWNLOAD_URL="https://cli.doppler.com/download?os=$os&arch=$arch&format=tar"
 
 filename="doppler-download.tar.gz"
 
-curl --silent --retry 3 -o "$filename" -LN -D - "$DOWNLOAD_URL"
+if ! curl --silent --show-error --retry 3 -o "$filename" -L "$DOWNLOAD_URL"; then
+  echo "ERROR: Failed to download Doppler CLI from $DOWNLOAD_URL"
+  exit 1
+fi
 
 mkdir -p $BUILD_DIR/vendor/doppler
 tar -zxvf $filename -C $BUILD_DIR/vendor/doppler
@@ -97,3 +100,5 @@ for VAR in $TARGET_DOPPLER_VARS; do
   # export the env var to >> $BP_DIR/export
   echo "export $VAR=$VALUE" >> "$BP_DIR/export"
 done
+
+exit $?
