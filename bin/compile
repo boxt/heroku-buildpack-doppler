@@ -57,7 +57,7 @@ DOWNLOAD_URL="https://cli.doppler.com/download?os=$os&arch=$arch&format=tar"
 
 filename="doppler-download.tar.gz"
 
-if ! curl --silent --retry 3 -o "$filename" -LN -D - "$DOWNLOAD_URL"; then
+if ! curl --silent --show-error --retry 3 -o "$filename" -L "$DOWNLOAD_URL"; then
   echo "ERROR: Failed to download Doppler CLI from $DOWNLOAD_URL"
   exit 1
 fi
